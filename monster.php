@@ -2,7 +2,7 @@
 
     class Monster{
         //eric sera la valeur par défaut
-        private $name='Eric';
+        private $name;
       /*  private $lastName;
         private $age;
         private $color;*/
@@ -10,9 +10,12 @@
         private $life;
         private $type;
 
-        function __construct()
+        function __construct($n, $s, $l, $t)
         {
-            $this->color='pink';
+            $this->name=$n;
+            $this->strength=$s;
+            $this->life=$l;
+            $this->type=$t;
         }
 
         function setName($n)

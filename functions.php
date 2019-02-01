@@ -58,6 +58,21 @@ function getMonsters()
     return $tab;
         
 }
+function getmonstersBDD()
+{
+    try{
+        $bdd = new PDO('mysql:host=localhost;dbname=monsters;charset=utf8', 'root', '123456');
+    }
+    catch (Exception $e){
+        die('Erreur : ' . $e->getMessage());
+    }
+    $reponse = $bdd->query('SELECT name, strength, life, type FROM monster');
+    $monstersAux = array();    
+    foreach ($reponse->fetchAll() as $monster) {
+        $monstersAux[] = new Monster($monster['name'],$monster['strength'],$monster['life'],$monster['type']);
+    }
+    return $monstersAux;
+}
 
 /**
  * Our complex fighting algorithm!

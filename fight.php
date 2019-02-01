@@ -2,7 +2,7 @@
 
 require __DIR__ . '/functions.php';
 
-$monsters = getMonsters();
+$monsters = getMonstersBDD();
 
 $firstMonsterName = isset($_POST['first_monster_name']) ? $_POST['first_monster_name'] : null;
 $secondMonsterName = isset($_POST['second_monster_name']) ? $_POST['second_monster_name'] : null;

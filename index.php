@@ -2,7 +2,7 @@
 
 require __DIR__ . '/functions.php';
 
-$monsters = getMonsters();
+$monsters = getmonstersBDD();
 
 ?>
 
