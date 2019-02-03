@@ -1,34 +1,8 @@
 <?php
 require __DIR__ . '/monster.php';
-
+//récupérer les monstres sans base données sous formes des objets
 function getMonsters()
 {
-    /*return [
-        [
-            'name' => 'Domovoï',
-            'strength' => 30,
-            'life' => 300,
-            'type' => 'water'
-        ],
-        [
-            'name' => 'Wendigos',
-            'strength' => 100,
-            'life' => 450,
-            'type' => 'earth'
-        ],
-        [
-            'name' => 'Thunderbird',
-            'strength' => 400,
-            'life' => 500,
-            'type' => 'air'
-        ],
-        [
-            'name' => 'Sirrush',
-            'strength' => 250,
-            'life' => 1500,
-            'type' => 'fire'
-        ],
-    ];*/
     $m1=new Monster();
     $m1->setName('Domovoi');
     $m1->setstrength(30);
@@ -58,15 +32,16 @@ function getMonsters()
     return $tab;
         
 }
+//récupérer les monstres à partir de la base des données
 function getmonstersBDD()
 {
     try{
-        $bdd = new PDO('mysql:host=localhost;dbname=monsters;charset=utf8', 'root', '123456');
+        $connexion = new PDO('mysql:host=localhost;dbname=monsters;charset=utf8', 'root', '123456');
     }
     catch (Exception $e){
         die('Erreur : ' . $e->getMessage());
     }
-    $reponse = $bdd->query('SELECT name, strength, life, type FROM monster');
+    $reponse = $connexion->query('SELECT name, strength, life, type FROM monster');
     $monstersAux = array();    
     foreach ($reponse->fetchAll() as $monster) {
         $monstersAux[] = new Monster($monster['name'],$monster['strength'],$monster['life'],$monster['type']);
@@ -74,6 +49,39 @@ function getmonstersBDD()
     return $monstersAux;
 }
 
+//boutton Add a new monster
+if (isset($_POST['btn_Add_Monster']))
+{
+    //appeler la méthode ci dessous pour ajouter le monster entré
+    Add_Monster($_POST['txtName'],$_POST['txtStrength'],$_POST['txtLife'],$_POST['txtType']);
+}
+
+/**
+ * Add a new monster
+ * @param $name the name of the monster to add 
+ * @param $strength how strong is the monster too add 
+ * @param $type tthe typeof the monster to add 
+ * @param $life lives of the monster to add 
+ */
+function Add_Monster($name,$strength,$life,$type)
+{
+    try {
+        //établir la connexion avec la base de données
+        $connexion = new PDO('mysql:host=localhost;dbname=monsters;charset=utf8', 'root', '123456');
+        //préparer la requête
+        $query=$connexion->prepare("insert into monster (name,strength,life,type) values(:name,:strength,:life,:type);");
+        //affecter les parametres à la requete
+        $query->bindParam(':name', $name);
+        $query->bindParam(':strength', $strength);
+        $query->bindParam(':life', $life);
+        $query->bindParam(':type', $type);
+        //exécuter la requête préparée
+        $query->execute(); 
+    }
+    catch(Exception $e ) {
+        die('Erreur : ' . $e->getMessage());
+    }        
+}
 /**
  * Our complex fighting algorithm!
  *

@@ -43,7 +43,22 @@ $monsters = getmonstersBDD();
             <p class="lead">This is a simple hero unit, a simple jumbotron-style component for calling extra attention to featured content or information.</p>
             <hr class="my-4">
         </div>
-
+<!-- ma fonctionnalité: Ajouter  un nouveau monster
+ -->
+ <!--Le container d'ajout-->
+ <center>
+ <form method="POST" action="">
+             <label for="txtName" id="txtName" >Name</label> 
+             <input type="text" name="txtName"> 
+             <label for="txtStrength" id="txtStrength" >Strength</label> 
+             <input type="text" name="txtStrength"  > 
+             <label for="txtLife" id="txtLife" >Life</label> 
+             <input type="text" name="txtLife"  > 
+             <label for="txtType" id="txtType" >Type</label> 
+             <input type="text" name="txtType"  > <br/><br/>
+             <!-- code du boutton add  new monster se trouve dans functions.php -->
+           <center>  <button type="submit" class="btn btn-outline-primary " name="btn_Add_Monster">Add a new monster</button> <center>
+ </form></center>
         <div class="container">
             <table class="table table-hover">
                 <caption><i class="fas fa-info"></i> Members of the monster league</caption>
@@ -62,6 +77,7 @@ $monsters = getmonstersBDD();
                             <td><?php echo $monster->getstrength(); ?></td>
                             <td><?php echo $monster->getlife(); ?></td>
                             <td><?php echo $monster->gettype(); ?></td>
+                           
                         </tr>
                     <?php } ?>
                 </tbody>

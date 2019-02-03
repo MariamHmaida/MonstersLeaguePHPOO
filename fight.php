@@ -2,6 +2,7 @@
 
 require __DIR__ . '/functions.php';
 
+//la variable qui va récupérer les données de la méthode getmonstersBDD(), qu elle meme permet de récuperer les données des monsters à partir de la base données
 $monsters = getMonstersBDD();
 
 $firstMonsterName = isset($_POST['first_monster_name']) ? $_POST['first_monster_name'] : null;
